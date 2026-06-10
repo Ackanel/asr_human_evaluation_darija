@@ -75,6 +75,24 @@ log = logging.getLogger(__name__)
 # Preferred display order for tiers (Gold first = most agreement)
 TIER_ORDER = ["Gold", "Silver", "Bronze"]
 
+ALLOWED_FILES = {
+    "Oujda_3-02_16k",
+    "Oujda_3-100_16k",
+    "Oujda_3-56_16k",
+    "Oujda_3-57_16k",
+    "Oujda_3-58_16k",
+    "Tangier_Radio_2-01_16k",
+    "Tangier_Radio_2-02_16k",
+    "Tangier_Radio_2-03_16k",
+    "Tetouan_1-23_16k",
+    "Tetouan_1-56_16k",
+    "Tetouan_1-24_16k",
+    "Tetouan_1-25_16k",
+    "Tetouan_2-15_16k",
+    "Tetouan_2-16_16k",
+    "radio_20250704_151811.mp3_16k"
+}
+
 # CSV column names → JSON field names for annotator data.
 # Mapping is case-insensitive; exact CSV header names on the left.
 ANNOTATOR_FIELD_MAP: list[tuple[str, str]] = [
@@ -348,6 +366,8 @@ def aggregate(audio_dir: Path, output_path: Path) -> None:
     files_with_no_annotations = 0
 
     for stem_lo, audio_info in sorted(tiered_audio.items(), key=sort_key):
+        if audio_info["stem"] not in ALLOWED_FILES:
+            continue
         tier     = audio_info["tier"]
         stem     = audio_info["stem"]
         filename = audio_info["filename"]

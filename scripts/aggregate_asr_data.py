@@ -58,6 +58,24 @@ REGION_CANDIDATES     = {"region", "location", "city", "loc", "place"}
 TRANSCRIPT_CANDIDATES = {"transcription", "text", "transcript", "output",
                          "result", "asr_output", "utterance", "hypothesis"}
  
+# Only include these files in the output (stems without extension)
+ALLOWED_FILES = {
+    "Oujda_3-02",
+    "Oujda_3-100",
+    "Oujda_3-56",
+    "Oujda_3-57",
+    "Oujda_3-58",
+    "Tangier_Radio_2-01",
+    "Tangier_Radio_2-02",
+    "Tangier_Radio_2-03",
+    "Tetouan_1-23",
+    "Tetouan_1-56",
+    "Tetouan_1-24",
+    "Tetouan_1-25",
+    "Tetouan_2-15",
+    "Tetouan_2-16",
+    "radio_20250704_151811.mp3",
+}
  
 def _detect_col(fieldnames: list[str], candidates: set[str], label: str,
                 csv_name: str) -> str | None:
@@ -363,6 +381,8 @@ def aggregate(data_dir: Path, output_path: Path) -> None:
     files_missing_all_transcriptions = 0
  
     for af in audio_files:
+        if af["stem"] not in ALLOWED_FILES:
+            continue
         stem     = af["stem"]
         location = af["location"]
         # Primary lookup key — matches CSV Region + filename stem
