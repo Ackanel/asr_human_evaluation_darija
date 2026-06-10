@@ -256,7 +256,7 @@ function anonLabel(name) {
     if (!all.some(n => n !== name && n.toLowerCase().startsWith(prefix))) break;
     len++;
   }
-  return 'UristMc00' + name.slice(0, len);
+  return 'UristMc00' + name.slice(1, len);
 }
 
 // ─── Metadata Comparison Grid (M3) ───────────────────────────────────────────
